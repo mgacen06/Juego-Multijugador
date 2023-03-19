@@ -1,0 +1,32 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    width: 90vw;
+    height: 90vh;
+    border: 1px  solid black;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.card{
+    width: 10vh;
+    height: 10vh;
+    border: 1px solid blue;
+}
+
+.objetivo{
+    background-color: green;
+}
+
+.j1{
+    background-color: orange;
+}
+
+.j2{
+    background-color: chocolate;
+}
