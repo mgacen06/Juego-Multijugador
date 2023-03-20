@@ -207,6 +207,7 @@ function mover(event) {
                 turno = !turno;
                 break;
         }
+        gana(j1);
     } else {
         switch (event.keyCode) {
             // Arriba
@@ -281,8 +282,20 @@ function mover(event) {
                 turno = !turno;
                 break;
         }
+        gana(j2);
+
     }
     turno = !turno;
+}
+
+/**
+ * Funcion para saber si ha ganado o no
+ * @param jugador
+ */
+function gana(jugador) {
+    if (jugador.id == objetivo.id) {
+        document.removeEventListener('keydown', mover);
+    }
 }
 
 /**
