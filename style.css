@@ -42,9 +42,19 @@ main{
 }
 
 .j1{
-    background-color: orange;
+    background-color: red;
+    border-radius: 50%;
 }
 
 .j2{
-    background-color: chocolate;
+    background-color: blue;
+    border-radius: 50%;
+}
+
+.puntos{
+    display: flex;
+    border: 1px solid black;
+    width: 50px;
+    height: 20px;
+    justify-content: center;
 }

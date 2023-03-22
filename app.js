@@ -4,32 +4,54 @@ let main = document.getElementsByTagName('main')[0];
 let nFilas = 8;
 let nColumnas = 8;
 
-let objetivo, j1, j2, turno;
+let objetivo, j1, j2, turno, contj1, contj2;
+
 let divJuego = document.createElement("div");
-divJuego.classList.add('container');
+let div0 ,div;
 
 let divInfo = document.createElement("div");
-divInfo.classList.add('container2');
-
+let j1Texto = document.createElement("p");
+let j1Puntuacion = document.createElement("div");
+let j2Texto = document.createElement("p");
+let j2Puntuacion = document.createElement("div");
 let reiniciar = document.createElement("button");
-reiniciar.textContent = "Reiniciar"
-reiniciar.setAttribute("type", "button");
-reiniciar.setAttribute("onclick", "inicio()");
-reiniciar.classList.add('reinicio');
 
-divInfo.appendChild(reiniciar);
-main.appendChild(divJuego);
-main.appendChild(divInfo);
+
+contj1=0;
+contj2=0;
 
 // Creamos el inicio del tablero
 document.addEventListener('load', inicio());
-reiniciar.setAttribute("onclick", "colocarFichas()");
 
 // Funcion que inicia el tablero
 function inicio() {
-    let div0;
-    let div;
-    // Bucles para crear filas y columas
+    // Crear estructura, un div con el juego otro con la info
+    divJuego.classList.add('container');
+    divInfo.classList.add('container2');
+
+    j1Texto.textContent = "Jugador 1";
+    j1Puntuacion.setAttribute("class", "puntos");
+    j1Puntuacion.textContent=contj1;
+
+    j2Texto.textContent = "Jugador 2";
+    j2Puntuacion.setAttribute("class", "puntos");
+    j2Puntuacion.textContent=contj2;
+
+    reiniciar.textContent = "Reiniciar"
+    reiniciar.setAttribute("type", "button");
+    reiniciar.setAttribute("onclick", "colocarFichas()");
+    reiniciar.classList.add('reinicio');
+
+    divInfo.appendChild(j1Texto);
+    divInfo.appendChild(j1Puntuacion);
+    divInfo.appendChild(j2Texto);
+    divInfo.appendChild(j2Puntuacion);
+    divInfo.appendChild(reiniciar);
+
+    main.appendChild(divJuego);
+    main.appendChild(divInfo);
+
+    // Bucles para crear filas y columas del juego
     for (let i = 0; i < nFilas; i++) {
         div0 = document.createElement('div');
         for (let j = 0; j < nColumnas; j++) {
@@ -45,6 +67,7 @@ function inicio() {
 
 // Function que coloca las casillas inicialmente (ALEATORIO TODO)
 function colocarFichas() {
+
     // El turno empieza para j1
     turno = false;
     // Borrar casillas partida anterior si las hay
@@ -56,6 +79,10 @@ function colocarFichas() {
             dv.classList.remove("j2");
         }
     }
+
+    // Generar el evento de poder mover las fichas
+    document.addEventListener('keydown', mover);
+
     // Generar las 3 posiciones aleatorias sin repetirse
     let posicionesFin = noRepiten();
 
@@ -120,7 +147,6 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 // Creamos el evento de escucha de tecaldo
-document.addEventListener('keydown', mover);
 
 /**
  * Funcion que detecta el movimiento y ejecuta el cambio de posicion
@@ -295,6 +321,14 @@ function mover(event) {
 function gana(jugador) {
     if (jugador.id == objetivo.id) {
         document.removeEventListener('keydown', mover);
+        // Los tengo puestos al reves pero soy consciente y es facil manejarlos así
+        if(!turno){
+            contj1++;
+            j1Puntuacion.textContent=contj1;
+        } else{
+            contj2++;
+            j2Puntuacion.textContent=contj2;
+        }
     }
 }
 
